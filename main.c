@@ -18,10 +18,22 @@
 
 #include<stdio.h>
 
+int log(const char* str) {
+	printf("%s\n", str);
+	return 0;
+}
+
+int wrapper_log() {
+	void* args = __builtin_apply_args();
+	printf(" >>> ");
+	__builtin_apply(&log, args, sizeof(args));
+}
+
 int main(void) 
 {
 	const char* str_en = "Hello, World";
 	const char* str_cn = "你好, 世界"; 
-	printf("%s\n %s\n", str_en, str_cn);
+	wrapper_log(str_en);
+	wrapper_log(str_cn);
 	return 0;
 }
