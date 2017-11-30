@@ -26,7 +26,9 @@ int log(const char* str) {
 int wrapper_log() {
 	void* args = __builtin_apply_args();
 	printf(" >>> ");
-	__builtin_apply(&log, args, sizeof(args));
+	void* result = __builtin_apply(&log, args, sizeof(args));
+	// __builtin_return(result);
+	// return *((int*)result); 
 }
 
 int main(void) 
