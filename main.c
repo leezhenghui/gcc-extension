@@ -20,22 +20,24 @@
 
 int log(const char* str) {
 	printf("%s\n", str);
-	return 0;
+	return 10;
 }
 
 int wrapper_log() {
 	void* args = __builtin_apply_args();
-	printf(" >>> ");
-	void* result = __builtin_apply(&log, args, sizeof(args));
-	// __builtin_return(result);
-	// return *((int*)result); 
+	void (* fn)() = (void (*) ()) log;
+	void* result = __builtin_apply(fn, args, sizeof(args));
+	printf(" >>> %p\n", result);
+	 __builtin_return(result);
 }
 
 int main(void) 
 {
 	const char* str_en = "Hello, World";
 	const char* str_cn = "你好, 世界"; 
-	wrapper_log(str_en);
-	wrapper_log(str_cn);
+	int reval = wrapper_log(str_en);
+	printf("reval_en: %d\n", reval);
+	reval = wrapper_log(str_cn);
+	printf("reval_cn: %d\n", reval);
 	return 0;
 }
