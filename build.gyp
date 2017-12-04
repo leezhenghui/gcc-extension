@@ -11,10 +11,12 @@
 			],
 			"cflags": [],
 			"include_dirs": [
-				"include"
+				"include",
+		    './deps/simplelogger/simplog.h'	
 			],
 			'dependencies': [
-				'instrument'
+				'instrument',
+        './deps/simplelogger.gyp:simplelogger'
 			],
 			'configurations': {
 			   'Debug': {
@@ -34,8 +36,36 @@
 			"cflags": [
 			],
 			"include_dirs": [
-				"include"
+				"include",
+		    './deps/simplelogger/simplog.h'	
+			],
+			'dependencies': [
+        './deps/simplelogger.gyp:simplelogger'
 			]
+		},
+		{
+			"target_name": "preload_hook",
+			"product_name": "preload_hook",
+			'type': 'shared_library',
+			"sources": [
+				"./preload_hook.c"
+			],
+			"cflags": [
+				 '-fPIC',
+				 '-D_GNU_SOURCE'
+			],
+			'ldflags': [
+			  '-shared'
+			],
+			"include_dirs": [
+			],
+			'link_settings': {
+				'libraries': [
+					'-ldl',
+					'-nostartfiles'
+					]	
+			}
 		}
+
 	]
 }

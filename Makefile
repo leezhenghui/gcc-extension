@@ -1,4 +1,4 @@
-all: ./build ./main-debug ./main
+all: ./build ./main-debug ./main ./preload_hook ./preload_hook-debug
 
 ./build:
 	@echo "[Generate Make File]"
@@ -10,11 +10,17 @@ all: ./build ./main-debug ./main
 ./main:
 	@make main -C ./build V=1 BUILDTYPE=Release
 
+./preload_hook:
+	@make preload_hook -C ./build V=1 BUILDTYPE=Release
+
+./preload_hook-debug:
+	@make preload_hook -C ./build V=1 BUILDTYPE=Debug
+
 ./test-debug:
-	@./build/out/Debug/main
+	@LD_PRELOAD=./build/out/Debug/lib.target/libpreload_hook.so ./build/out/Debug/main
 
 ./test:
-	@./build/out/Release/main
+	@LD_PRELOAD=./build/out/Release/lib.target/libpreload_hook.so ./build/out/Release/main
 
 ./clean:
 	@echo "[Cleanup]"

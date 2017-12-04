@@ -17,17 +17,22 @@
  */
 
 #include<stdio.h>
+#include  "./deps/simplelogger/simplog.h"
 
 int log(const char* str) {
+	simplog.writeLog( SIMPLOG_DEBUG, "log_enter");
 	printf("%s\n", str);
+	simplog.writeLog( SIMPLOG_DEBUG, "log_exit");
 	return 10;
 }
 
 int wrapper_log() {
+	simplog.writeLog( SIMPLOG_DEBUG, "wrapper_log enter");
 	void* args = __builtin_apply_args();
 	void (* fn)() = (void (*) ()) log;
 	void* result = __builtin_apply(fn, args, sizeof(args));
-	printf(" >>> %p\n", result);
+	// printf(" >>> %p\n", result);
+	simplog.writeLog( SIMPLOG_DEBUG, "wrapper_log exit");
 	 __builtin_return(result);
 }
 

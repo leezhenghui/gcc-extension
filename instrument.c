@@ -19,14 +19,16 @@
 #include<stdio.h>
 #include <time.h>
 
+#include  "./deps/simplelogger/simplog.h"
+
 void __cyg_profile_func_enter (void *func,  void *caller)
 {
-	printf("cyg_profile_func_enter\n");
-	// printf("%p %p %s\n", func, caller, asctime(time(NULL)) );
+	// printf("cyg_profile_func_enter\n");
+	simplog.writeLog( SIMPLOG_DEBUG, "cyg_profile_func_enter");
 }
 
 void __cyg_profile_func_exit (void *func, void *caller)
 {
-	printf("cyg_profile_func_exit\n");
-	// printf("x %p %p %s\n", func, caller, asctime(time(NULL)));
+	// printf("cyg_profile_func_exit\n");
+	simplog.writeLog( SIMPLOG_DEBUG, "cyg_profile_func_exit");
 }

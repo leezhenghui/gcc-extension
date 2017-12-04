@@ -17,6 +17,7 @@
  */
 
 #include<stdio.h>
+#include  "./deps/simplelogger/simplog.h"
 
 static void pre_invoke (void) __attribute__ ((constructor));
 
@@ -24,11 +25,13 @@ static void post_invoke (void) __attribute__ ((destructor));
 
 static void pre_invoke (void) 
 {
-  printf("Pre-Invoke\n");
+	simplog.writeLog( SIMPLOG_DEBUG, "[pre-invoke] main()");
+	// printf("[pre-invoke] main()\n");
 }
 
 static void post_invoke (void) 
 {
-  printf("Post-Invoke\n");
+	simplog.writeLog( SIMPLOG_DEBUG, "[post-invoke] main()");
+	// printf("[post-invoke] main()\n");
 }
 
